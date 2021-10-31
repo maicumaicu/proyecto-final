@@ -71,7 +71,7 @@ void screenMachine() {
           if (c == x) {
             prenderParte(body[c].r, body[c].g, body[c].b, c);
             screenState = GUESS;
-            BTserial.write(1);
+            BTserial.write('1');
             ms = 0;
           }
         }

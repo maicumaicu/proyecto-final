@@ -68,9 +68,15 @@ void IotinoMachine() {
     case START:
 
       if (BTSerial.available()) {
-        estadoIotino = ON;
+        char e = BTSerial.read();
+        if (e == '1') {
+          estadoIotino = ON;
+
+        }
+        Serial.println(0);
       } else {
         BTSerial.write(part);
+        Serial.println(7);
       }
       break;
     case ON:
@@ -78,11 +84,14 @@ void IotinoMachine() {
         if (btns[x].flag == 1) {
           estadoIotino = RESULT;
           choice = x;
+          Serial.print(part);
+          Serial.print(choice);
           if (part == choice) {
             BTSerial.write('1');
-            Serial.print(0);
+            Serial.print("bien");
           } else {
             BTSerial.write('0');
+            Serial.print("mal");
           }
         }
       }
@@ -93,16 +102,17 @@ void IotinoMachine() {
       if (ms >= 1000) {
         Serial.print(0);
         BTSerial.write('2');
-      }
-      if (BTSerial.available()) {
-        char d = BTSerial.read();
-        Serial.print(d);
-        if (d == '1') {
-          Serial.print(BTSerial.read());
-          estadoIotino = START;
-          part = randomPartSelecter();
+        if (BTSerial.available()) {
+          char d = BTSerial.read();
+          Serial.print(0);
+          if (d == '1') {
+            Serial.print(BTSerial.read());
+            estadoIotino = START;
+            part = randomPartSelecter();
+          }
         }
       }
+
 
       break;
   }
