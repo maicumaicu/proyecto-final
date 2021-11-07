@@ -85,7 +85,6 @@ int randomPartSelecter() {
 
 void IotinoMachine() {
   switch (estadoIotino) {
-
     case ON:
       prenderParte(body[part].r, body[part].g, body[part].b, part);
       for (int x = 0; x < CANT_BTN; x ++) {
