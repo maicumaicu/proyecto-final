@@ -12,7 +12,7 @@
 
 #define CANT_BTN 2
 #define PIN_MATRIZ 12
-#define NUMPIXELS  64
+#define NUMPIXELS  5
 
 SoftwareSerial BTserial(10, 11); // RX | TX
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN_MATRIZ, NEO_GRB + NEO_KHZ800);
@@ -120,10 +120,8 @@ void screenMachine() {
 }
 
 void prenderParte(int red, int green, int blue, int parte) {
-  for (int x = parte; x < NUMPIXELS; x += 8) {
     pixels.setPixelColor(x, pixels.Color(red, green, blue));
     pixels.show();
-  }
 }
 
 void victoria() {

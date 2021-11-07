@@ -67,7 +67,7 @@ void screenMachine() {
       pixels.show();
       BTserial.write('1');
       screenState = GUESS;
-      Serial.println("hola");
+      Serial.println(part);
       break;
     case GUESS:
       if (BTserial.available()) {
@@ -78,7 +78,6 @@ void screenMachine() {
           correct = true;
         }
         screenState = RESULT;
-
         Serial.println(correct);
         ms = 0;
       }
@@ -86,14 +85,16 @@ void screenMachine() {
     case RESULT:
       if (correct == true) {
         victoria();
+        Serial.print("good");
       } else {
         derrota();
+        Serial.print("bad");
       }
       if (ms > 1000) {
         Serial.print("Bye");
         screenState = ON;
         correct = false;
-        part =  randomPartSelecter();
+        part = randomPartSelecter();
       }
 
       break;
@@ -108,20 +109,20 @@ int randomPartSelecter() {
 
 
 void prenderParte(int red, int green, int blue, int parte) {
-  pixels.setPixelColor(parte, pixels.Color(red, green, blue));
+  pixels.setPixelColor(parte, pixels.Color(green, red, blue));
   pixels.show();
 }
 
 void victoria() {
   for (int x = 0; x < NUMPIXELS; x ++) {
-    pixels.setPixelColor(x, pixels.Color(0, 255, 0));
+    pixels.setPixelColor(x, pixels.Color(255, 0, 0));
     pixels.show();
   }
 }
 
 void derrota() {
   for (int x = 0; x < NUMPIXELS; x ++) {
-    pixels.setPixelColor(x, pixels.Color(255, 0, 0));
+    pixels.setPixelColor(x, pixels.Color(0, 255, 0));
     pixels.show();
   }
 }
